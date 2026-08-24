@@ -132,11 +132,75 @@ export interface UserProfile {
   avatar: string;
   badge: string;
   bio?: string;
+  role?: 'admin' | 'user' | 'chef';
+  blogTitle?: string;
+  blogDescription?: string;
+  skinTheme?: 'default' | 'mint' | 'warm' | 'dark' | 'lavender' | 'forest';
+  todayVisitors?: number;
+  totalVisitors?: number;
+  neighborsCount?: number;
   scraps?: string[];
   likedRecipes?: string[];
   bookmarkedRecipeIds?: string[];
   myRecipeIds?: string[];
   myPostIds?: string[];
+  joinedDate?: string;
+}
+
+export interface Neighbor {
+  id: string;
+  name: string;
+  blogTitle: string;
+  avatar: string;
+  status: 'mutual' | 'following' | 'pending';
+  lastPostTitle?: string;
+  lastPostTime?: string;
+}
+
+export interface GuestbookEntry {
+  id: string;
+  author: string;
+  authorAvatar: string;
+  content: string;
+  date: string;
+  isSecret: boolean;
+  reply?: string;
+  replyDate?: string;
+}
+
+export interface NoticeItem {
+  id: string;
+  title: string;
+  category: '공지' | '이벤트' | '업데이트' | '점검';
+  date: string;
+  views: number;
+  author: string;
+  isPinned: boolean;
+  content: string;
+}
+
+export interface BannerItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  badgeText: string;
+  imageUrl: string;
+  linkUrl: string;
+  bgColor: string;
+  isActive: boolean;
+  order: number;
+}
+
+export interface ReportedItem {
+  id: string;
+  type: 'post' | 'comment' | 'recipe';
+  targetId: string;
+  targetTitle: string;
+  authorName: string;
+  reporterName: string;
+  reason: string;
+  date: string;
+  status: 'pending' | 'resolved' | 'dismissed';
 }
 
 export type Language = 'ko' | 'en' | 'ja';

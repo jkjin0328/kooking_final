@@ -13,6 +13,8 @@ import { RecipeDetailModal } from './components/RecipeDetailModal';
 import { FridgeSearchModal } from './components/FridgeSearchModal';
 import { RecipeCreateModal } from './components/RecipeCreateModal';
 import { CommunityBlogView } from './components/CommunityBlogView';
+import { MyBlogPage } from './components/MyBlogPage';
+import { AdminDashboard } from './components/AdminDashboard';
 import { BlogEditorModal } from './components/BlogEditorModal';
 import { CompareModal } from './components/CompareModal';
 import { AiChefChatModal } from './components/AiChefChatModal';
@@ -43,8 +45,8 @@ export default function App() {
   const [lang, setLang] = useState<Language>('ko');
   const t = I18N_DICTIONARY[lang];
 
-  // Active View Tab: 'home' (Recipes) | 'community' (Naver Blog Feed) | 'bookmarks'
-  const [activeTab, setActiveTab] = useState<'home' | 'community' | 'bookmarks'>('home');
+  // Active View Tab: 'home' (Recipes) | 'community' (Feed) | 'myblog' (Naver Blog MyPage) | 'admin' | 'bookmarks'
+  const [activeTab, setActiveTab] = useState<'home' | 'community' | 'myblog' | 'admin' | 'bookmarks'>('home');
 
   // Recipes & Community State
   const [recipes, setRecipes] = useState<Recipe[]>(INITIAL_RECIPES);
@@ -250,7 +252,36 @@ export default function App() {
 
       {/* Main Content Area based on Tab */}
       <main className="flex-1">
-        {activeTab === 'community' ? (
+        {activeTab === 'myblog' ? (
+          /* ========================================================
+             NAVER BLOG-STYLE MY PAGE (Personal Blog Dashboard)
+             ======================================================== */
+          <MyBlogPage
+            currentUser={currentUser}
+            recipes={recipes}
+            blogPosts={blogPosts}
+            bookmarkedRecipeIds={bookmarkedIds}
+            likedRecipeIds={likedRecipeIds}
+            onOpenRecipeDetail={(recipe) => setSelectedRecipe(recipe)}
+            onOpenBlogEditor={() => setIsBlogEditorOpen(true)}
+            onToggleBookmark={handleToggleBookmark}
+            onToggleLikeRecipe={handleToggleLike}
+            onLikePost={handleLikePost}
+            onOpenCreateRecipe={() => setIsRecipeCreateOpen(true)}
+            onOpenAdmin={() => setActiveTab('admin')}
+          />
+        ) : activeTab === 'admin' ? (
+          /* ========================================================
+             ADMIN DASHBOARD (Community & Homepage Management)
+             ======================================================== */
+          <AdminDashboard
+            recipes={recipes}
+            blogPosts={blogPosts}
+            onClose={() => setActiveTab('home')}
+            onUpdateRecipes={setRecipes}
+            onUpdateBlogPosts={setBlogPosts}
+          />
+        ) : activeTab === 'community' ? (
           /* ========================================================
              COMMUNITY BLOG VIEW (Naver Blog Style Food Feed)
              ======================================================== */

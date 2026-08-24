@@ -15,14 +15,16 @@ import {
   WifiOff,
   LogOut,
   Sparkles,
-  Layers
+  Layers,
+  ShieldCheck,
+  UserCheck
 } from 'lucide-react';
 import { Language, UserProfile } from '../types';
 import { I18N_DICTIONARY } from '../locales/i18n';
 
 interface NavbarProps {
-  activeTab?: 'home' | 'recipes' | 'fridge' | 'community' | 'live' | 'backend' | 'bookmarks';
-  currentTab?: 'home' | 'recipes' | 'fridge' | 'community' | 'live' | 'backend' | 'bookmarks';
+  activeTab?: 'home' | 'recipes' | 'fridge' | 'community' | 'myblog' | 'admin' | 'live' | 'backend' | 'bookmarks';
+  currentTab?: 'home' | 'recipes' | 'fridge' | 'community' | 'myblog' | 'admin' | 'live' | 'backend' | 'bookmarks';
   onChangeTab?: (tab: any) => void;
   onSelectTab?: (tab: any) => void;
   lang?: Language;
@@ -148,91 +150,119 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          <nav className="hidden md:flex flex-row items-center gap-1 lg:gap-2 flex-shrink-0">
             <button
               id="nav-recipes-tab"
               onClick={() => handleTabChange('home')}
-              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 effectiveTab === 'home' || effectiveTab === 'recipes'
                   ? 'text-[#ff6b6b] bg-[#ff6b6b]/10' 
                   : 'text-[#2f3542] hover:text-[#ff6b6b] hover:bg-gray-50'
               }`}
             >
-              <Utensils className="w-4 h-4" />
-              <span>{t.navExplore}</span>
+              <Utensils className="w-4 h-4 flex-shrink-0" />
+              <span className="whitespace-nowrap">{t.navExplore}</span>
             </button>
 
             <button
               id="nav-fridge-tab"
               onClick={() => handleTabChange('fridge')}
-              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 effectiveTab === 'fridge' 
                   ? 'text-[#ff6b6b] bg-[#ff6b6b]/10' 
                   : 'text-[#2f3542] hover:text-[#ff6b6b] hover:bg-gray-50'
               }`}
             >
-              <Refrigerator className="w-4 h-4 text-[#4ecdc4]" />
-              <span>{t.navFridge}</span>
+              <Refrigerator className="w-4 h-4 text-[#4ecdc4] flex-shrink-0" />
+              <span className="whitespace-nowrap">{t.navFridge}</span>
             </button>
 
             <button
               id="nav-community-tab"
               onClick={() => handleTabChange('community')}
-              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 effectiveTab === 'community' 
                   ? 'text-[#ff6b6b] bg-[#ff6b6b]/10' 
                   : 'text-[#2f3542] hover:text-[#ff6b6b] hover:bg-gray-50'
               }`}
             >
-              <BookOpen className="w-4 h-4 text-amber-500" />
-              <span>{t.navCommunity}</span>
+              <BookOpen className="w-4 h-4 text-amber-500 flex-shrink-0" />
+              <span className="whitespace-nowrap">{t.navCommunity}</span>
+            </button>
+
+            <button
+              id="nav-myblog-tab"
+              onClick={() => handleTabChange('myblog')}
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
+                effectiveTab === 'myblog' 
+                  ? 'text-[#03c75a] bg-[#03c75a]/10 font-bold' 
+                  : 'text-[#2f3542] hover:text-[#03c75a] hover:bg-gray-50'
+              }`}
+              title="네이버 블로그 스타일 마이페이지"
+            >
+              <UserCheck className="w-4 h-4 text-[#03c75a] flex-shrink-0" />
+              <span className="whitespace-nowrap">마이페이지</span>
+            </button>
+
+            <button
+              id="nav-admin-tab"
+              onClick={() => handleTabChange('admin')}
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
+                effectiveTab === 'admin' 
+                  ? 'text-purple-600 bg-purple-600/10 font-bold' 
+                  : 'text-[#2f3542] hover:text-purple-600 hover:bg-gray-50'
+              }`}
+              title="커뮤니티 및 홈페이지 관리자"
+            >
+              <ShieldCheck className="w-4 h-4 text-purple-600 flex-shrink-0" />
+              <span className="whitespace-nowrap">관리자</span>
             </button>
 
             <button
               id="nav-live-tab"
               onClick={() => handleTabChange('live')}
-              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 effectiveTab === 'live' 
                   ? 'text-[#ff6b6b] bg-[#ff6b6b]/10' 
                   : 'text-[#2f3542] hover:text-[#ff6b6b] hover:bg-gray-50'
               }`}
             >
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
               </span>
-              <Radio className="w-4 h-4 text-red-500" />
-              <span>{t.navLive}</span>
+              <Radio className="w-4 h-4 text-red-500 flex-shrink-0" />
+              <span className="whitespace-nowrap">{t.navLive}</span>
             </button>
 
             <button
               id="nav-backend-tab"
               onClick={() => handleTabChange('backend')}
-              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 effectiveTab === 'backend' 
                   ? 'text-[#ff6b6b] bg-[#ff6b6b]/10' 
                   : 'text-[#2f3542] hover:text-[#ff6b6b] hover:bg-gray-50'
               }`}
             >
-              <Server className="w-4 h-4 text-purple-600" />
-              <span className="hidden lg:inline">{t.navBackendDocs}</span>
-              <span className="lg:hidden">30대 API</span>
+              <Server className="w-4 h-4 text-purple-600 flex-shrink-0" />
+              <span className="hidden lg:inline whitespace-nowrap">{t.navBackendDocs}</span>
+              <span className="lg:hidden whitespace-nowrap">30대 API</span>
             </button>
           </nav>
 
           {/* Action Tools & Controls */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex flex-row items-center gap-2 sm:gap-2.5 flex-shrink-0">
             
             {/* AI Chef Button */}
             {onOpenAIChat && (
               <button
                 id="ai-chef-btn"
                 onClick={onOpenAIChat}
-                className="p-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium text-xs sm:text-sm flex items-center gap-1.5 shadow-sm hover:opacity-95 transition-all"
+                className="px-2.5 py-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium text-xs sm:text-sm flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0 shadow-sm hover:opacity-95 transition-all"
                 title="AI 셰프 챗봇"
               >
-                <Sparkles className="w-4 h-4" />
-                <span className="hidden sm:inline">AI 셰프</span>
+                <Sparkles className="w-4 h-4 flex-shrink-0" />
+                <span className="inline whitespace-nowrap">AI 셰프</span>
               </button>
             )}
 
@@ -241,12 +271,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="compare-open-btn"
                 onClick={onOpenCompare}
-                className="relative p-2 sm:px-3 sm:py-2 rounded-xl bg-[#4ecdc4]/15 text-[#20a39a] font-semibold text-xs sm:text-sm flex items-center gap-1 hover:bg-[#4ecdc4]/25 transition-all"
+                className="relative px-2.5 py-2 sm:px-3 sm:py-2 rounded-xl bg-[#4ecdc4]/15 text-[#20a39a] font-semibold text-xs sm:text-sm flex flex-row items-center gap-1 whitespace-nowrap flex-shrink-0 hover:bg-[#4ecdc4]/25 transition-all"
                 title="레시피 비교"
               >
-                <Layers className="w-4 h-4" />
-                <span className="hidden sm:inline">비교({compareCount})</span>
-                <span className="sm:hidden text-xs">{compareCount}</span>
+                <Layers className="w-4 h-4 flex-shrink-0" />
+                <span className="hidden sm:inline whitespace-nowrap">비교({compareCount})</span>
+                <span className="sm:hidden text-xs whitespace-nowrap">{compareCount}</span>
               </button>
             )}
 
@@ -254,12 +284,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-bookmark-btn"
               onClick={() => handleTabChange('bookmarks')}
-              className={`relative p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 transition-colors ${
+              className={`relative p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 transition-colors flex-shrink-0 ${
                 effectiveTab === 'bookmarks' ? 'text-[#ff6b6b] border-[#ff6b6b]/40 bg-[#ff6b6b]/5' : 'text-[#2f3542]'
               }`}
               title="스크랩북"
             >
-              <Bookmark className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Bookmark className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               {totalBookmarks > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ff6b6b] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {totalBookmarks}
@@ -271,10 +301,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-cart-btn"
               onClick={onOpenCart}
-              className="relative p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 transition-colors text-[#2f3542]"
+              className="relative p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 transition-colors text-[#2f3542] flex-shrink-0"
               title="장바구니"
             >
-              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ff6b6b] text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
                   {cartCount}
@@ -287,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="pwa-offline-toggle"
                 onClick={onToggleOffline}
-                className={`p-2 rounded-xl text-xs font-semibold border transition-all ${
+                className={`p-2 rounded-xl text-xs font-semibold border transition-all flex-shrink-0 ${
                   isOffline 
                     ? 'bg-amber-500/10 text-amber-600 border-amber-300' 
                     : 'bg-emerald-500/10 text-emerald-600 border-emerald-300'
@@ -299,34 +329,34 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* i18n Language Dropdown */}
-            <div className="relative">
+            <div className="relative flex-shrink-0">
               <button
                 id="i18n-lang-btn"
                 onClick={() => setShowLangMenu(!showLangMenu)}
-                className="p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 text-[#2f3542] flex items-center gap-1 text-xs font-bold"
+                className="p-2 sm:p-2.5 rounded-xl border border-[#e9ecef] hover:bg-gray-50 text-[#2f3542] flex flex-row items-center gap-1 text-xs font-bold whitespace-nowrap"
               >
-                <Globe className="w-4 h-4 text-gray-500" />
-                <span className="uppercase">{effectiveLang}</span>
+                <Globe className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span className="uppercase whitespace-nowrap">{effectiveLang}</span>
               </button>
               {showLangMenu && (
                 <div className="absolute right-0 mt-2 w-28 bg-white border border-[#e9ecef] rounded-xl shadow-lg py-1 z-50">
                   <button
                     onClick={() => handleLangChange('ko')}
-                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex items-center justify-between ${effectiveLang === 'ko' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
+                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex flex-row items-center justify-between whitespace-nowrap ${effectiveLang === 'ko' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
                   >
                     <span>한국어</span>
                     <span>🇰🇷</span>
                   </button>
                   <button
                     onClick={() => handleLangChange('en')}
-                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex items-center justify-between ${effectiveLang === 'en' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
+                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex flex-row items-center justify-between whitespace-nowrap ${effectiveLang === 'en' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
                   >
                     <span>English</span>
                     <span>🇺🇸</span>
                   </button>
                   <button
                     onClick={() => handleLangChange('ja')}
-                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex items-center justify-between ${effectiveLang === 'ja' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
+                    className={`w-full px-3 py-1.5 text-left text-xs font-medium hover:bg-gray-50 flex flex-row items-center justify-between whitespace-nowrap ${effectiveLang === 'ja' ? 'text-[#ff6b6b] font-bold' : 'text-[#2f3542]'}`}
                   >
                     <span>日本語</span>
                     <span>🇯🇵</span>
@@ -340,20 +370,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="create-recipe-header-btn"
                 onClick={onOpenCreateRecipe}
-                className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#ff6b6b] hover:bg-[#ff5252] text-white text-xs sm:text-sm font-semibold shadow-md shadow-[#ff6b6b]/20 transition-all hover:scale-[1.02]"
+                className="hidden sm:flex flex-row items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#ff6b6b] hover:bg-[#ff5252] text-white text-xs sm:text-sm font-semibold shadow-md shadow-[#ff6b6b]/20 transition-all hover:scale-[1.02] whitespace-nowrap flex-shrink-0"
               >
-                <PlusCircle className="w-4 h-4" />
-                <span>{t.navCreateRecipe}</span>
+                <PlusCircle className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">{t.navCreateRecipe}</span>
               </button>
             )}
 
             {/* User Profile / Auth */}
             {currentUser ? (
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <button
                   id="user-profile-btn"
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-2 p-1 rounded-full border-2 border-[#ff6b6b]/40 hover:border-[#ff6b6b] transition-all"
+                  className="flex flex-row items-center gap-2 p-1 rounded-full border-2 border-[#ff6b6b]/40 hover:border-[#ff6b6b] transition-all"
                 >
                   <img
                     src={currentUser.avatar}
@@ -371,25 +401,39 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </span>
                     </div>
                     <button
-                      onClick={() => { handleTabChange('community'); setShowUserMenu(false); }}
-                      className="w-full px-4 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      onClick={() => { handleTabChange('myblog'); setShowUserMenu(false); }}
+                      className="w-full px-4 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex flex-row items-center gap-2 whitespace-nowrap font-bold text-[#03c75a]"
                     >
-                      <BookOpen className="w-4 h-4 text-amber-500" />
-                      <span>내 블로그 글 보기</span>
+                      <UserCheck className="w-4 h-4 text-[#03c75a] flex-shrink-0" />
+                      <span>내 블로그 (마이페이지)</span>
+                    </button>
+                    <button
+                      onClick={() => { handleTabChange('community'); setShowUserMenu(false); }}
+                      className="w-full px-4 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex flex-row items-center gap-2 whitespace-nowrap"
+                    >
+                      <BookOpen className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                      <span>블로그 전체 피드</span>
                     </button>
                     <button
                       onClick={() => { handleTabChange('bookmarks'); setShowUserMenu(false); }}
-                      className="w-full px-4 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      className="w-full px-4 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex flex-row items-center gap-2 whitespace-nowrap"
                     >
-                      <Bookmark className="w-4 h-4 text-[#ff6b6b]" />
+                      <Bookmark className="w-4 h-4 text-[#ff6b6b] flex-shrink-0" />
                       <span>스크랩 레시피</span>
+                    </button>
+                    <button
+                      onClick={() => { handleTabChange('admin'); setShowUserMenu(false); }}
+                      className="w-full px-4 py-2 text-left text-xs text-purple-600 hover:bg-purple-50 flex flex-row items-center gap-2 whitespace-nowrap font-semibold border-t border-gray-100"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-purple-600 flex-shrink-0" />
+                      <span>관리자 센터</span>
                     </button>
                     {onLogout && (
                       <button
                         onClick={() => { onLogout(); setShowUserMenu(false); }}
-                        className="w-full px-4 py-2 text-left text-xs text-red-600 hover:bg-red-50 flex items-center gap-2 border-t border-gray-100"
+                        className="w-full px-4 py-2 text-left text-xs text-red-600 hover:bg-red-50 flex flex-row items-center gap-2 border-t border-gray-100 whitespace-nowrap"
                       >
-                        <LogOut className="w-4 h-4" />
+                        <LogOut className="w-4 h-4 flex-shrink-0" />
                         <span>{t.navLogout}</span>
                       </button>
                     )}
@@ -400,10 +444,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="login-modal-btn"
                 onClick={onOpenAuth}
-                className="px-3.5 py-2 rounded-xl bg-[#2f3542] hover:bg-[#1e222b] text-white text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-[#2f3542] hover:bg-[#1e222b] text-white text-xs sm:text-sm font-semibold transition-all flex flex-row items-center gap-1.5 whitespace-nowrap flex-shrink-0"
               >
-                <UserIcon className="w-3.5 h-3.5" />
-                <span>{t.navLogin}</span>
+                <UserIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                <span className="whitespace-nowrap">{t.navLogin}</span>
               </button>
             )}
 
