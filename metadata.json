@@ -1,0 +1,6 @@
+{
+  "name": "Kooking - 레시피 공유 플랫폼",
+  "description": "Kooking 디자인 시스템 기반의 스마트 레시피 공유, AI 셰프 챗봇, 음성 인식 조리 모드, 30가지 백엔드 아키텍처 명세 및 블로그형 커뮤니티 플랫폼",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
